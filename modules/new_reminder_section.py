@@ -3,6 +3,16 @@ from tkinter import ttk
 import customtkinter
 
 
+def create_reminder(app, reminder_type, reminder_name):
+    if (reminder_name == ""):
+        # TODO: Handle this error
+        print("Please enter a reminder name")
+        return
+
+    if reminder_type == "Do laundry":
+        print("Do laundry")
+
+
 def create(app):
     # reminder type
     label_reminder_type = customtkinter.CTkLabel(
@@ -24,5 +34,6 @@ def create(app):
 
     # submit button
     submit_button = customtkinter.CTkButton(
-        app, text="Create a New Reminder", fg_color="#006D5B")
+        app, text="Create a New Reminder", fg_color="#006D5B", command=lambda: create_reminder(app, reminder_types_optionMenu.get(), reminder_name.get())
+    )
     submit_button.grid(row=2, column=2, padx=10)
