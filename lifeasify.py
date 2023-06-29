@@ -1,31 +1,41 @@
-from tkinter import *
-from tkinter import ttk
+import tkinter
 import customtkinter
-from datetime import datetime
 import modules.create
 
-# Set the appearance mode and color theme
-customtkinter.set_appearance_mode('System')
-customtkinter.set_default_color_theme('blue')
 
-# Create the app
-app = customtkinter.CTk()
+DARK_MODE = "dark"
+customtkinter.set_appearance_mode(DARK_MODE)
+customtkinter.set_default_color_theme("dark-blue")
 
-main_frame = customtkinter.CTkFrame(app)
-already_created_reminder_frame = customtkinter.CTkFrame(app)
-create_reminder_frame = customtkinter.CTkFrame(app)
 
-modules.create.initial_page(app)
+class App(customtkinter.CTk):
 
-# main_frame.tkraise()
+    def __init__(self):
+        super().__init__()
 
-app.geometry('720x480')
-app.title("Lifeasify")
-# reminder_options.pack(side=LEFT)
-# reminder_options.add_option("Add Reminder")
+        self.title("Lifeasify")
+        self.geometry("720x480")
 
-# now = datetime.now()
-# print(now.diff)
+        self.main_container = customtkinter.CTkFrame(self, corner_radius=10)
+        self.main_container.pack(
+            fill=tkinter.BOTH, padx=10, pady=10)
 
-# Run the app
-app.mainloop()
+        self.main()
+
+    def main(self):
+        self.clear_frame()
+        modules.create.main_page(self, self.main_container)
+
+    def laundry(self):
+        self.clear_frame()
+        modules.create.laundry_page(self, self.main_container)
+
+    def clear_frame(self):
+        for widget in self.main_container.winfo_children():
+            widget.destroy()
+
+        return self
+
+
+a = App()
+a.mainloop()
